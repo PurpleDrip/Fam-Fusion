@@ -1,13 +1,9 @@
 const jwt = require("jsonwebtoken");
 
-const createRefreshToken = () => {
-  const refresh_token = jwt.sign(
-    { name: "John Doe" },
-    process.env.JWT_SECRET_REFRESH,
-    {
-      expiresIn: "6000ms",
-    }
-  );
+const createRefreshToken = (id) => {
+  const refresh_token = jwt.sign({ id: id }, process.env.JWT_SECRET_REFRESH, {
+    expiresIn: "3* 60 * 1000ms", // 3min
+  });
   return refresh_token;
 };
 
