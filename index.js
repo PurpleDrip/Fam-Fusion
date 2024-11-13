@@ -4,8 +4,8 @@ const mongoose = require("mongoose");
 const bodyParser = require("body-parser");
 const cors = require("cors");
 const dotenv = require("dotenv");
-const cookieMiddleware = require("./Middlewares/cookiesMiddleware");
-const loginMiddleware = require("./Middlewares/loginMiddleware");
+const Login = require("./Routes/Login");
+const Register = require("./Routes/Register");
 
 dotenv.config();
 app.use(cors());
@@ -15,7 +15,8 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.get("/", (req, res, next) => {
   res.send("This is the server for Fam Fusion");
 });
-app.use("/api/login", cookieMiddleware, loginMiddleware);
+app.use("/api/login", Login);
+app.use("/api/register", Register);
 
 mongoose
   .connect(process.env.MONGODB_URL)
