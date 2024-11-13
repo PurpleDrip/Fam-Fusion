@@ -2,6 +2,7 @@ const express = require("express");
 const app = express();
 const mongoose = require("mongoose");
 const bodyParser = require("body-parser");
+const cookieParser = require("cookie-parser");
 const cors = require("cors");
 const dotenv = require("dotenv");
 const Login = require("./Routes/Login");
@@ -10,6 +11,7 @@ const Register = require("./Routes/Register");
 dotenv.config();
 app.use(cors());
 app.use(express.json());
+app.use(cookieParser);
 app.use(bodyParser.urlencoded({ extended: true }));
 
 app.get("/", (req, res, next) => {
