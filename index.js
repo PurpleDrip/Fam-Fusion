@@ -1,0 +1,31 @@
+const express = require("express");
+const app = express();
+const mongoose = require("mongoose");
+const bodyParser = require("body-parser");
+const cors = require("cors");
+const dotenv = require("dotenv");
+const cookieMiddleware = require("./Middlewares/cookiesMiddleware");
+const loginMiddleware = require("./Middlewares/loginMiddleware");
+
+dotenv.config();
+app.use(cors());
+app.use(express.json());
+app.use(bodyParser.urlencoded({ extended: true }));
+
+app.get("/", (req, res, next) => {
+  res.send("This is the server for Fam Fusion");
+});
+app.use("/api/login", cookieMiddleware, loginMiddleware);
+
+mongoose
+  .connect(process.env.MONGODB_URL)
+  .then(() => {
+    console.log("Connected to Mongo DB successfully");
+    const PORT = process.env.PORT || 3000;
+    app.listen(PORT, () => {
+      console.log(`Server is running on port ${PORT}`);
+    });
+  })
+  .catch((err) => {
+    console.log("Error connecting to Mongo DB\n" + err);
+  });
