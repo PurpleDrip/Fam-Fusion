@@ -18,7 +18,7 @@ const checkforToken = (req, res) => {
         res.status(401).json({ message: "Unauthorized" });
         return false;
       }
-      console.log("There was refresh token but no temp token.");
+      console.log("There was no tokens but, there was a refresh token.");
       const newToken = createToken(decoded.id);
       res.cookie("token", newToken, {
         httpOnly: true,
