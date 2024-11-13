@@ -3,6 +3,6 @@ const router = express.Router();
 const loginMiddleware = require("../Middlewares/loginMiddleware");
 const cookiesMiddleware = require("../Middlewares/cookiesMiddleware");
 
-router.post("/", cookiesMiddleware, loginMiddleware);
+router.post("/", loginMiddleware);
 
 module.exports = router;
