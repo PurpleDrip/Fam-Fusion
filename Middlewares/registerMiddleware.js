@@ -22,8 +22,6 @@ const registerMiddleware = async (req, res, next) => {
     U_Password: encryptedPass,
   });
 
-  await savetoDB(res, user);
-
   const token = createToken();
   const refresh_token = createRefreshToken();
 
@@ -39,6 +37,7 @@ const registerMiddleware = async (req, res, next) => {
     httpOnly: true,
     maxAge: 60 * 1000,
   });
+  await savetoDB(res, user);
   console.log("Created user successfully.");
   return res.status(201).json(user);
 };
