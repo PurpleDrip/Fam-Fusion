@@ -8,6 +8,7 @@ const dotenv = require("dotenv");
 const connectDB = require("./Config/DB");
 const loginRoute = require("./Routes/loginRoute");
 const registerRoute = require("./Routes/registerRoute");
+const profileRoute = require("./Routes/profileRoute");
 
 dotenv.config();
 app.use(cors());
@@ -20,6 +21,7 @@ app.get("/", (req, res) => {
 });
 app.use("/api/login", loginRoute);
 app.use("/api/register", registerRoute);
+app.use("/api/profile", profileRoute);
 
 connectDB();
 

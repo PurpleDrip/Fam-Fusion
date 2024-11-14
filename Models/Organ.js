@@ -1,10 +1,11 @@
-const mongoose = require("mongoose");
-const Schema = mongoose.Schema;
-
-const Organ = new Schema({
-  O_Name: { type: String, required: true },
-  O_Email: { type: String, required: true },
-  O_Password: { type: String, required: true },
+const OrganizationSchema = new mongoose.Schema({
+  orgName: { type: String, required: true },
+  email: { type: String, required: true, unique: true },
+  password: { type: String, required: true },
+  isAuthenticated: { type: Boolean, default: false },
+  isEmailValidated: { type: Boolean, default: false },
+  childrens: [{ type: mongoose.Schema.Types.ObjectId, ref: "Child" }],
+  createdAt: { type: Date, default: Date.now },
 });
 
-module.exports = mongoose.model("Organ", Organ);
+module.exports = mongoose.model("Organ", OrganizationSchema);
