@@ -2,6 +2,7 @@ const jwt = require("jsonwebtoken");
 const createToken = require("../Helper/createToken");
 
 const checkforTokenMiddleware = (req, res, next) => {
+  console.log("Checking for tokens....");
   let token = req.cookies.token;
 
   try {
@@ -9,14 +10,14 @@ const checkforTokenMiddleware = (req, res, next) => {
       token = req.cookies.refresh_token;
 
       if (!token) {
-        res.status(401).json({ message: "Unauthorized" });
-        return;
+        console.log("There was neither Refresh Token nor Temp Token.");
+        return res.status(400).json({ message: "No Tokens Found" });
       }
-
+      console.log("**Detected a Refresh Token**");
       const decoded = jwt.verify(token, process.env.JWT_SECRET_REFRESH);
       if (!decoded) {
-        res.status(401).json({ message: "Unauthorized" });
-        return false;
+        console.log("Error decoding the Refresh Token.");
+        return res.status(400).json({ message: "Error decoding the Token." });
       }
       console.log("There was no tokens but, there was a refresh token.");
       const newToken = createToken(decoded.id);
@@ -27,18 +28,19 @@ const checkforTokenMiddleware = (req, res, next) => {
         secure: process.env.NODE_ENV === "production",
       });
 
-      req.user = decoded;
-      next();
+      return res.status(200).json({
+        message:
+          "There was a Refresh Token using which a Temp Token was restored.",
+      });
     }
-
+    console.log("**A Token is detected**");
     const decoded = jwt.verify(token, process.env.JWT_SECRET_TEMP);
     if (!decoded) {
-      res.status(401).json({ message: "Unauthorized" });
+      res.status(401).json({ message: "Temp Token couldn't be decoded" });
       return;
     }
 
-    req.user = decoded;
-    next();
+    return res.status(200).json({ message: "Found a Temp Token" });
   } catch (error) {
     if (error.name === "TokenExpiredError") {
       res.status(401).json({ message: "Token expired, please log in again." });
