@@ -1,8 +1,8 @@
 const express = require("express");
 const router = express.Router();
 const loginMiddleware = require("../Middlewares/loginMiddleware");
-const cookiesMiddleware = require("../Middlewares/cookiesMiddleware");
+const checkforTokenMiddleware = require("../Middlewares/checkforTokenMiddleware");
 
-router.post("/", loginMiddleware);
+router.post("/", checkforTokenMiddleware, loginMiddleware);
 
 module.exports = router;

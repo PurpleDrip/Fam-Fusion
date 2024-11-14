@@ -1,7 +1,6 @@
 const User = require("../Models/User");
 const bcrypt = require("bcrypt");
 const { v4: uuidv4 } = require("uuid");
-const Redis = require("ioredis");
 const jwt = require("jsonwebtoken");
 const checkforNull = require("../Helper/checkforNull");
 const checkforUser = require("../Helper/checkforUser");
@@ -9,11 +8,11 @@ const createToken = require("../Helper/createToken");
 const createRefreshToken = require("../Helper/createRefreshToken");
 const savetoDB = require("../Helper/savetoDB");
 
-// Initialize Redis client
-const redis = new Redis({
-  host: process.env.REDIS_HOST || "localhost",
-  port: process.env.REDIS_PORT || 6379,
-});
+// // Initialize Redis client
+// const redis = new Redis({
+//   host: process.env.REDIS_HOST || "localhost",
+//   port: process.env.REDIS_PORT || 6379,
+// });
 
 const registerMiddleware = async (req, res, next) => {
   console.log("Got a register api request.");

@@ -1,7 +1,7 @@
 const jwt = require("jsonwebtoken");
-const createToken = require("./createToken");
+const createToken = require("../Helper/createToken");
 
-const checkforToken = (req, res) => {
+const checkforTokenMiddleware = (req, res, next) => {
   let token = req.cookies.token;
 
   try {
@@ -10,7 +10,7 @@ const checkforToken = (req, res) => {
 
       if (!token) {
         res.status(401).json({ message: "Unauthorized" });
-        return false;
+        return;
       }
 
       const decoded = jwt.verify(token, process.env.JWT_SECRET_REFRESH);
@@ -28,25 +28,25 @@ const checkforToken = (req, res) => {
       });
 
       req.user = decoded;
-      return true;
+      next();
     }
 
     const decoded = jwt.verify(token, process.env.JWT_SECRET_TEMP);
     if (!decoded) {
       res.status(401).json({ message: "Unauthorized" });
-      return false;
+      return;
     }
 
     req.user = decoded;
-    return true;
+    next();
   } catch (error) {
     if (error.name === "TokenExpiredError") {
       res.status(401).json({ message: "Token expired, please log in again." });
     } else {
       res.status(401).json({ message: "Unauthorized" });
     }
-    return false;
+    return;
   }
 };
 
-module.exports = checkforToken;
+module.exports = checkforTokenMiddleware;

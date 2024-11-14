@@ -1,12 +1,9 @@
-const checkforToken = require("../Helper/checkforToken");
 const checkforNull = require("../Helper/checkforNull");
 const User = require("../Models/User");
 const bcrypt = require("bcrypt");
 
 const loginMiddleware = async (req, res, next) => {
   console.log("Got a login api request.");
-
-  if (!checkforToken(req, res)) return;
 
   const { username, password } = req.body;
   let user;
