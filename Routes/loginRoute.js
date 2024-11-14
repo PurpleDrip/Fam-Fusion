@@ -4,7 +4,7 @@ const loginMiddleware = require("../Middlewares/loginMiddleware");
 const checkforTokenMiddleware = require("../Middlewares/checkforTokenMiddleware");
 const loginorganMiddleware = require("../Middlewares/loginorganMiddleware");
 
-router.post("/user", loginMiddleware);
+router.post("/", loginMiddleware);
 router.get("/", checkforTokenMiddleware);
 
 router.post("/organ", loginorganMiddleware);

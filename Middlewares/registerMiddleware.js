@@ -16,11 +16,12 @@ const savetoDB = require("../Helper/savetoDB");
 
 const registerMiddleware = async (req, res, next) => {
   console.log("Got a register api request.");
+  const role = "user";
   const { username, email, password } = req.body;
 
   if (checkforNull(res, username, email, password)) return;
 
-  if (await checkforUser(res, username, email)) return;
+  if (await checkforUser(res, username, email, role)) return;
 
   const encryptedPass = await bcrypt.hash(password, 10);
 
@@ -29,9 +30,12 @@ const registerMiddleware = async (req, res, next) => {
     U_Email: email,
     U_Password: encryptedPass,
   });
-
-  const token = createToken(user._id);
-  const refresh_token = createRefreshToken(user._id);
+  const token_info = {
+    id: user._id,
+    role: "user",
+  };
+  const token = createToken(token_info);
+  const refresh_token = createRefreshToken(token_info);
 
   res.cookie("token", token, {
     httpOnly: true,
