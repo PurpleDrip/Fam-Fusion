@@ -9,7 +9,7 @@ const loginorganMiddleware = async (req, res, next) => {
   let user;
   if (checkforNull(res, username, password)) return;
   try {
-    user = await Organ.findOne({ O_Name: username });
+    user = await Organ.findOne({ orgName: username });
   } catch (err) {
     res.status(500).json({ message: "Error accessing the db" });
     return;
@@ -23,7 +23,7 @@ const loginorganMiddleware = async (req, res, next) => {
   }
   let isPasswordValid;
   try {
-    isPasswordValid = await bcrypt.compare(password, user.O_Password);
+    isPasswordValid = await bcrypt.compare(password, user.password);
   } catch (err) {
     res.status(500).json({ message: "Error comparing the password " });
     return;

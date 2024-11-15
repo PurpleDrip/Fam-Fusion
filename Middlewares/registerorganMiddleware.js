@@ -26,9 +26,9 @@ const registerorganMiddleware = async (req, res, next) => {
   const encryptedPass = await bcrypt.hash(password, 10);
 
   const user = new Organ({
-    O_Name: username.toLowerCase(),
-    O_Email: email,
-    O_Password: encryptedPass,
+    orgName: username.toLowerCase(),
+    email: email,
+    password: encryptedPass,
   });
   const token_info = {
     id: user._id,

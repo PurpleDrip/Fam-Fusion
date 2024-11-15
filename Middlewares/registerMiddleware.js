@@ -26,9 +26,9 @@ const registerMiddleware = async (req, res, next) => {
   const encryptedPass = await bcrypt.hash(password, 10);
 
   const user = new User({
-    U_Name: username.toLowerCase(),
-    U_Email: email,
-    U_Password: encryptedPass,
+    userName: username.toLowerCase(),
+    email: email,
+    password: encryptedPass,
   });
   const token_info = {
     id: user._id,

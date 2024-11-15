@@ -9,7 +9,7 @@ const loginMiddleware = async (req, res, next) => {
   let user;
   if (checkforNull(res, username, password)) return;
   try {
-    user = await User.findOne({ U_Name: username });
+    user = await User.findOne({ userName: username.toLowerCase() });
   } catch (err) {
     res.status(500).json({ message: "Error accessing the db" });
     return;
@@ -21,7 +21,7 @@ const loginMiddleware = async (req, res, next) => {
   }
   let isPasswordValid;
   try {
-    isPasswordValid = await bcrypt.compare(password, user.U_Password);
+    isPasswordValid = await bcrypt.compare(password, user.password);
   } catch (err) {
     res.status(500).json({ message: "Error comparing the password " });
     return;

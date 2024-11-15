@@ -1,3 +1,5 @@
+const mongoose = require("mongoose");
+
 const ChildProfileSchema = new mongoose.Schema({
   name: { type: String, required: true },
   age: { type: Number, required: true },
@@ -13,7 +15,7 @@ const ChildProfileSchema = new mongoose.Schema({
     default: null,
   },
   isAdopted: { type: Boolean, default: false },
-  organizationId: {
+  organId: {
     type: mongoose.Schema.Types.ObjectId,
     ref: "Organization",
     required: true,

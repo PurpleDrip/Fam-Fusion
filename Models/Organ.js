@@ -1,3 +1,5 @@
+const mongoose = require("mongoose");
+
 const OrganizationSchema = new mongoose.Schema({
   orgName: { type: String, required: true },
   email: { type: String, required: true, unique: true },
