@@ -1,38 +1,46 @@
 const checkforNull = require("../Helper/checkforNull");
 const Child = require("../Models/Child");
 const mongoose = require("mongoose");
-const Organ = require("../Models/Organ"); // Assuming you have this model for organizations
+const Organ = require("../Models/Organ");
 
 const addProfileMiddleware = async (req, res) => {
   console.log("Got Profile POST request.");
-  const { name, age, sex, organID } = req.body;
-  console.log(name, age, sex, organID);
+  const { name, age, sex, organID, healthStatus, bio } = req.body;
+  console.log(name, age, sex, organID, healthStatus, bio);
 
-  // Check for required fields being null or undefined
-  if (checkforNull(res, name, age, sex, organID)) return;
+  if (checkforNull(res, name, age, sex, organID, healthStatus, bio)) return;
 
   try {
-    // Check if the provided organID exists in the organization collection
     const organization = await Organ.findById(organID);
     if (!organization) {
       return res.status(400).json({ message: "Organization not found" });
     }
 
-    // Create a new child profile
     const child = new Child({
       name,
       age,
       sex,
-      organId: new mongoose.Types.ObjectId(organID), // Ensuring valid ObjectId
-      healthStatus: "Healthy", // Optional: You can default this value or include in the request body
-      bio: "No bio available", // Optional: You can also include a default or provided bio
-      isAdopted: false, // Assuming initially not adopted
+      organId: new mongoose.Types.ObjectId(organID),
+      healthStatus,
+      bio,
+      isAdopted: false,
     });
 
-    // Save to the database
-    await child.save(); // `savetoDB` function is not required, you can directly use `save()`
+    const savedChild = await child.save();
 
-    // Return a success response with the created child
+    const updatedOrgan = await Organ.findByIdAndUpdate(
+      organID,
+      { $push: { childrens: savedChild._id } },
+      { new: true }
+    );
+
+    if (!updatedOrgan) {
+      return res.status(500).json({ message: "Failed to update organization" });
+    }
+
+    console.log("Child added successfully:", savedChild);
+    console.log("Updated Organization:", updatedOrgan);
+
     return res.status(200).json({ child });
   } catch (err) {
     console.error("Error saving child profile:", err);
