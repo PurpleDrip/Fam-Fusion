@@ -1,7 +1,7 @@
 import e from "express";
-import addProfileMiddleware from "../Middleware/addProfileMiddleware.js";
-import adoptedProfileMiddleware from "../Middleware/adoptedProfileMiddleware.js";
-import updateRecordMiddleware from "../Middleware/updateRecordMiddleware.js";
+import addProfileMiddleware from "../Controller/addProfileController.js";
+import adoptedProfileMiddleware from "../Controller/adoptedProfileController.js";
+import updateRecordMiddleware from "../Controller/updateRecordController.js";
 
 const route = e.Router();
 

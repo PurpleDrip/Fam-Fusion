@@ -1,6 +1,6 @@
 import e from "express";
-import registerOrganMiddleware from "../Middleware/registerOrganMiddleware.js";
-import registerUserMiddleware from "../Middleware/registerUserMiddleware.js";
+import registerOrganMiddleware from "../Controller/registerOrganController.js";
+import registerUserMiddleware from "../Controller/registerUserController.js";
 import addTokenMiddleware from "../Middleware/addTokenMiddleware.js";
 import addRefreshMiddleware from "../Middleware/addRefreshMiddleware.js";
 
