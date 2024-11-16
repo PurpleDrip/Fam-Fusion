@@ -5,7 +5,12 @@ import addTokenMiddleware from "../Middleware/addTokenMiddleware.js";
 import addRefreshMiddleware from "../Middleware/addRefreshMiddleware.js";
 
 const router = express.Router();
-router.post("/user", loginUserMiddleware);
+router.post(
+  "/user",
+  loginUserMiddleware,
+  addTokenMiddleware,
+  addRefreshMiddleware
+);
 router.post(
   "/organ",
   loginOrganMiddleware,
