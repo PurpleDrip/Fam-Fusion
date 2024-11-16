@@ -19,3 +19,5 @@ const Record = new Schema({
     default: "Pending",
   },
 });
+
+export default mongoose.model("Record", Record);
