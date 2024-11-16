@@ -15,7 +15,9 @@ const User = new Schema({
   isEmailValidated: { type: Boolean, default: false },
   adoptedCount: { type: Number, default: 0 },
   isPremiumMember: { type: Boolean, default: false },
-  hasAdopted: [{ type: Schema.Types.ObjectId, ref: "Child", default: [] }],
+  hasAdopted: [
+    { type: mongoose.Schema.Types.ObjectId, ref: "Child", default: [] },
+  ],
   created: { type: Date, default: Date.now },
 });
 

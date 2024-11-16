@@ -8,8 +8,10 @@ const Organ = new Schema({
   role: { type: String, default: "organ" },
   isAuth: { type: Boolean, default: false },
   isEmailValidated: { type: Boolean, default: false },
-  childrens: [{ type: Schema.Types.ObjectId, ref: "Child", default: [] }],
-  clients: [{ type: Schema.Types.ObjectId, ref: "User", default: [] }],
+  childrens: [
+    { type: mongoose.Schema.Types.ObjectId, ref: "Child", default: [] },
+  ],
+  clients: [{ type: mongoose.Schema.Types.ObjectId, ref: "User", default: [] }],
   created: { type: Date, default: Date.now },
 });
 
