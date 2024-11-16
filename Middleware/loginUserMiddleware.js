@@ -1,6 +1,5 @@
 import User from "../Models/User.js";
 import bcrypt from "bcrypt";
-import jwt from "jsonwebtoken";
 import chalk from "chalk";
 
 const loginUserMiddleware = async (req, res, next) => {
@@ -10,7 +9,7 @@ const loginUserMiddleware = async (req, res, next) => {
 
   try {
     const user = await User.findOne({
-      $or: [{ username }, { email }],
+      $or: [{ username: username.toLowerCase() }, { email }],
     });
 
     if (!user) {

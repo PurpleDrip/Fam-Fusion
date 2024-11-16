@@ -9,6 +9,7 @@ import connecttoDB from "./Config/connecttoDB.js";
 import connecttoRedis from "./Config/connecttoRedis.js";
 import checkforToken from "./Middleware/checkforToken.js";
 import loginRoute from "./Routes/loginRoute.js";
+import registerRoute from "./Routes/registerRoute.js";
 
 dotenv.config();
 const app = express();
@@ -19,6 +20,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 
 app.post("/api/checkforToken", checkforToken);
 app.use("/api/login", loginRoute);
+app.use("/api/register", registerRoute);
 
 connecttoDB();
 connecttoRedis();

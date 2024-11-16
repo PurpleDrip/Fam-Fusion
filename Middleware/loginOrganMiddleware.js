@@ -9,7 +9,7 @@ const loginOrganMiddleware = async (req, res, next) => {
 
   try {
     const organ = await Organ.findOne({
-      $or: [{ organName: username }, { organEmail: email }],
+      $or: [{ organName: username.toLowerCase() }, { organEmail: email }],
     });
 
     if (!organ) {

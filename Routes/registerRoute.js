@@ -1,20 +1,20 @@
-import express from "express";
-import loginUserMiddleware from "../Middleware/loginUserMiddleware.js";
-import loginOrganMiddleware from "../Middleware/loginOrganMiddleware.js";
+import e from "express";
+import registerOrganMiddleware from "../Middleware/registerOrganMiddleware.js";
+import registerUserMiddleware from "../Middleware/registerUserMiddleware.js";
 import addTokenMiddleware from "../Middleware/addTokenMiddleware.js";
 import addRefreshMiddleware from "../Middleware/addRefreshMiddleware.js";
 
-const router = express.Router();
+const router = e.Router();
 
 router.post(
   "/user",
-  loginUserMiddleware,
+  registerUserMiddleware,
   addTokenMiddleware,
   addRefreshMiddleware
 );
 router.post(
   "/organ",
-  loginOrganMiddleware,
+  registerOrganMiddleware,
   addTokenMiddleware,
   addRefreshMiddleware
 );
