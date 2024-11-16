@@ -8,6 +8,7 @@ import chalk from "chalk";
 import connecttoDB from "./Config/connecttoDB.js";
 import connecttoRedis from "./Config/connecttoRedis.js";
 import checkforToken from "./Middleware/checkforToken.js";
+import loginRoute from "./Routes/loginRoute.js";
 
 dotenv.config();
 const app = express();
@@ -17,6 +18,7 @@ app.use(cookieParser());
 app.use(bodyParser.urlencoded({ extended: true }));
 
 app.post("/api/checkforToken", checkforToken);
+app.use("/api/login", loginRoute);
 
 connecttoDB();
 connecttoRedis();
