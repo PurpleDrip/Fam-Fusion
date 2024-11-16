@@ -2,13 +2,13 @@ import chalk from "chalk";
 import mongoose from "mongoose";
 
 const connectToDB = async () => {
-  console.log(chalk.yellow("Connecting to MongoDB..."));
+  console.log(chalk.bgYellow("Connecting to MongoDB..."));
 
   try {
     await mongoose.connect(process.env.MONGODB_URL);
-    console.log(chalk.green("Connected to MongoDB successfully!"));
+    console.log(chalk.bgGreen("Connected to MongoDB successfully!"));
   } catch (err) {
-    console.log(chalk.red("Error connecting to MongoDB:", err.message));
+    console.log(chalk.bgRed("Error connecting to MongoDB:", err.message));
   }
 };
 

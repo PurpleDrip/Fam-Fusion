@@ -1,23 +1,21 @@
 import Redis from "ioredis";
+import chalk from "chalk";
 
 const connectToRedis = async () => {
+  console.log(chalk.bgYellow("Connecting to Redis Stack..."));
   const redis = new Redis({
-    host: "localhost", // Redis host
-    port: 6379, // Redis port
+    host: "localhost",
+    port: 6379,
+    password: "mypassword",
   });
 
-  try {
-    console.log(chalk.green("Connecting to Redis..."));
-    await redis.connect();
-    console.log("Connected to Redis Stack!");
+  redis.on("connect", () => {
+    console.log(chalk.bgGreen("Connected to Redis Stack successfully!"));
+  });
 
-    // Example to set a key
-    await redis.set("name", "John");
-    const value = await redis.get("name");
-    console.log(value); // Should print 'John'
-  } catch (err) {
-    console.error("Redis connection failed", err);
-  }
+  redis.on("error", (err) => {
+    console.error(chalk.bgRed("Redis connection failed:", err));
+  });
 };
 
 export default connectToRedis;
