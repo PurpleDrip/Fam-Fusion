@@ -1,5 +1,5 @@
 {
-  "name": "cns",
+  "name": "backend",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
@@ -11,17 +11,11 @@
   "dependencies": {
     "bcrypt": "^5.1.1",
     "body-parser": "^1.20.3",
-    "cookie-parser": "^1.4.7",
+    "chalk": "^5.3.0",
     "cors": "^2.8.5",
     "dotenv": "^16.4.5",
     "express": "^4.21.1",
-    "helmet": "^8.0.0",
-    "ioredis": "^5.4.1",
-    "jsonwebtoken": "^9.0.2",
     "mongodb": "^6.10.0",
-    "mongoose": "^8.8.1",
-    "nodemon": "^3.1.7",
-    "redis": "^4.7.0",
-    "uuid": "^11.0.3"
+    "mongoose": "^8.8.1"
   }
 }
