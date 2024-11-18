@@ -11,6 +11,7 @@ import checkforToken from "./Middleware/checkforToken.js";
 import loginRoute from "./Routes/loginRoute.js";
 import registerRoute from "./Routes/registerRoute.js";
 import profileRoute from "./Routes/profileRoute.js";
+import filterRoute from "./Routes/filterRoute.js";
 
 dotenv.config();
 const app = express();
@@ -23,6 +24,7 @@ app.post("/api/checkforToken", checkforToken);
 app.use("/api/login", loginRoute);
 app.use("/api/register", registerRoute);
 app.use("/api/profile", profileRoute);
+app.use("/api/filter", filterRoute);
 
 connecttoDB();
 connecttoRedis();
