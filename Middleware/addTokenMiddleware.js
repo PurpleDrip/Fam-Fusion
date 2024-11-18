@@ -10,7 +10,7 @@ const addTokenMiddleware = (req, res, next) => {
   }
 
   const newToken = jwt.sign(
-    { id: user._id, role: user.role },
+    { id: user.id, role: user.role },
     process.env.JWT_KEY_TEMP,
     { expiresIn: "15m" }
   );

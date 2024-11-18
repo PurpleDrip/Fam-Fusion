@@ -28,7 +28,7 @@ const registerUserMiddleware = async (req, res, next) => {
       gender,
     });
 
-    res.locals.user = newUser;
+    res.locals.info = newUser;
     await newUser.save();
 
     console.log(chalk.green("User registered successfully."));

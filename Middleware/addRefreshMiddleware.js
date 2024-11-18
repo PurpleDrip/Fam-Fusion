@@ -10,7 +10,7 @@ const addRefreshMiddleware = (req, res) => {
   }
 
   const newRefreshToken = jwt.sign(
-    { id: user._id, role: user.role },
+    { id: user.id, role: user.role },
     process.env.JWT_KEY_REFRESH,
     { expiresIn: "7d" }
   );
