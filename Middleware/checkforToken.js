@@ -8,10 +8,7 @@ const checkforToken = (req, res) => {
   let decoded;
 
   if (!token) {
-    return res
-      .status(400)
-      .json({ message: "No tokens present" })
-      .redirect("/login");
+    return res.status(400).json({ message: "No tokens present" });
   }
 
   try {
@@ -23,13 +20,11 @@ const checkforToken = (req, res) => {
     if (decoded.role === "user") {
       return res
         .status(200)
-        .json({ message: "Token is present" })
-        .redirect("/home/user");
+        .json({ message: "Token is present", role: "user" });
     } else {
       return res
         .status(200)
-        .json({ message: "Token is present" })
-        .redirect("/home/organ");
+        .json({ message: "Token is present", role: "organ" });
     }
   } catch (err) {
     console.log(
@@ -62,20 +57,15 @@ const checkforToken = (req, res) => {
       if (decoded.role === "user") {
         return res
           .status(200)
-          .json({ message: "New token issued" })
-          .redirect("/home/user");
+          .json({ message: "New token issued", role: "user" });
       } else {
         return res
           .status(200)
-          .json({ message: "New token issued" })
-          .redirect("/home/organ");
+          .json({ message: "New token issued", role: "organ" });
       }
     } catch (err) {
       console.log(chalk.bgRed("Error decoding the refresh token"));
-      return res
-        .status(401)
-        .json({ message: "Invalid refresh token" })
-        .redirect("/login");
+      return res.status(401).json({ message: "Invalid refresh token" });
     }
   }
 };

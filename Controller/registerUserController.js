@@ -32,6 +32,7 @@ const registerUserMiddleware = async (req, res, next) => {
     await newUser.save();
 
     console.log(chalk.green("User registered successfully."));
+    res.locals.info = newUser;
     next();
   } catch (err) {
     console.error(chalk.bgRed("Error during user registration:"), err);

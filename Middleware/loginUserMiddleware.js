@@ -23,7 +23,7 @@ const loginUserMiddleware = async (req, res, next) => {
     }
 
     res.locals.info = user;
-    console.log(chalk.green("User authenticated successfully."));
+    console.log(chalk.bgGreen("User authenticated successfully."));
     next();
   } catch (err) {
     console.error(chalk.bgRed("Error during user login:"), err);

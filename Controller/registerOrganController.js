@@ -7,13 +7,12 @@ const registerOrganMiddleware = async (req, res, next) => {
     chalk.bgBlue("Received POST request for organization registration.")
   );
 
-  const { username, email, password, address } = req.body;
+  const { name, email, password, address } = req.body;
 
   try {
     const existingOrgan = await Organ.findOne({
-      $or: [{ organName: username.toLowerCase() }, { organEmail: email }],
+      $or: [{ organName: name.toLowerCase() }, { organEmail: email }],
     });
-
     if (existingOrgan) {
       return res
         .status(400)
@@ -21,18 +20,19 @@ const registerOrganMiddleware = async (req, res, next) => {
     }
 
     const encryptedPass = await bcrypt.hash(password, 10);
-
     const newOrgan = new Organ({
-      organName: username.toLowerCase(),
+      organName: name.toLowerCase(),
       organEmail: email,
       organAddress: address,
       password: encryptedPass,
     });
 
-    res.locals.user = newOrgan;
     await newOrgan.save();
 
+    res.locals.info = newOrgan;
+    res.username = newOrgan.name;
     console.log(chalk.green("Organization registered successfully."));
+
     next();
   } catch (err) {
     console.error(chalk.bgRed("Error during organization registration:"), err);

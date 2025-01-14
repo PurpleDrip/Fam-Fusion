@@ -6,6 +6,7 @@ const loginOrganMiddleware = async (req, res, next) => {
   console.log(chalk.bgBlue("Received POST request for organization login."));
 
   const { username, email, password } = req.body;
+  console.log(username, email, password);
 
   try {
     const organ = await Organ.findOne({

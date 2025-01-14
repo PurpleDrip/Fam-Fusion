@@ -5,11 +5,12 @@ const Child = new Schema({
   age: { type: Number, required: true },
   gender: { type: String, enum: ["Male", "Female", "Others"], required: true },
   bio: { type: String, required: true },
+  description: { type: String, required: true },
   race: { type: String, required: true },
   nationality: { type: String, required: true },
   isVerified: { type: Boolean, default: false },
   healthStatus: { type: String },
-  hobbies: { type: String, required: true },
+  hobbies: [{ type: String, required: true }],
   imageUrl: { type: String },
   organId: {
     type: mongoose.Schema.Types.ObjectId,

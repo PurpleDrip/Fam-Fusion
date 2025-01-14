@@ -22,7 +22,11 @@ const addRefreshMiddleware = (req, res) => {
     secure: process.env.NODE_ENV === "production",
   });
 
-  return res.status(200).json({ message: "Logged in successfully!" });
+  return res.status(200).json({
+    message: "Logged in successfully!",
+    name: res.locals.info.username || res.username,
+    id: res.locals.info._id,
+  });
 };
 
 export default addRefreshMiddleware;
